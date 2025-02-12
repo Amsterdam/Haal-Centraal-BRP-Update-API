@@ -227,6 +227,14 @@ paths:
           schema:
             type: "string"
             format: "date"
+        - in: query
+          name: max-leeftijd
+          required: false
+          explode: false
+          description: Alleen personen met de aangegeven maximale leeftijd die ingezetene zijn geworden op of na deze datum worden geleverd.
+          schema:
+            type: "string"
+            format: "date"
         - $ref: "#/components/parameters/X_User"
           required: true
         - $ref: "#/components/parameters/X_Correlation_ID"
