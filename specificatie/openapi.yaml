@@ -233,8 +233,7 @@ paths:
           explode: false
           description: Alleen personen met de aangegeven maximale leeftijd die ingezetene zijn geworden op of na deze datum worden geleverd.
           schema:
-            type: "string"
-            format: "date"
+            type: integer
         - $ref: "#/components/parameters/X_User"
           required: true
         - $ref: "#/components/parameters/X_Correlation_ID"
