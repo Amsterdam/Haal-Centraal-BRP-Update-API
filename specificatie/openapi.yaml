@@ -237,6 +237,49 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default"
       tags:
         - Raadplegen nieuwe ingezetenen
+  /bsn-wijzigingen:
+    get:
+      operationId: GetBsnWijzigingen
+      description: |
+        Vraag een lijst op met burgerservicenummers van personen van wie het burgerservicenummer is gewijzigd
+      summary: "Raadpleeg burgerservicenummers die zijn gewijzigd in de aangegeven periode"
+      parameters:
+        - in: query
+          name: vanaf
+          required: true
+          explode: false
+          description: Alleen burgerservicenummers die op of na deze datum zijn gewijzigd, worden geleverd.
+          schema:
+            type: "string"
+            format: "date"
+      responses:
+        "200":
+          description: "OK"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BsnWijzigingenCollectie"
+        "400":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/400"
+        "401":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/401"
+        "403":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/403"
+        "406":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/406"
+        "500":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/500"
+        "503":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/503"
+        "default":
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default"
+      tags:
+        - Raadplegen gewijzigde burgerservicenummers
 components:
   parameters:
     burgerservicenummer:
@@ -315,3 +358,27 @@ components:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/schemas/HalLink"
         ingeschrevenPersoon:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+    BsnWijzigingenCollectie:
+      type: object
+      properties:
+        bsn-wijzigingen:
+          type: array
+          items:
+            $ref: "#/components/schemas/BsnWijziging"
+    BsnWijziging:
+      type: object
+      properties:
+        burgerservicenummer-oud:
+          type: string
+          description: "Het oude burgerservicenummer in de wijziging."
+        burgerservicenummer-nieuw:
+          type: string
+          description: "Het nieuwe burgerservicenummer in de wijziging. In het geval van het opheffen van een PL met burgerservicenummer zal dit veld achterwege worden gelaten."
+        ingangsdatum:
+          type: "string"
+          format: "date"
+          description: "Datum vanaf wanneer de burgerservicenummerwijziging geldig is."
+        wijzigingsdatum:
+          type: "string"
+          format: "date"
+          description: "Datum van de wijziging."
