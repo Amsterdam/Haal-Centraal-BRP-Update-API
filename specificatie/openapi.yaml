@@ -248,7 +248,9 @@ paths:
           name: vanaf
           required: true
           explode: false
-          description: Alleen burgerservicenummers die op of na deze datum zijn gewijzigd, worden geleverd.
+          description: |
+            Alleen burgerservicenummers die op of na deze datum zijn gewijzigd, worden geleverd. 
+            Deze datum wordt vergeleken met de wijzigingsdatum van een wijziging, en dus niet de ingangsdatum.
           schema:
             type: "string"
             format: "date"
@@ -361,17 +363,26 @@ components:
     BsnWijzigingenCollectie:
       type: object
       properties:
+        _links:
+          $ref: "#/components/schemas/BsnWijzigingenHalCollectionLinks"
         bsn-wijzigingen:
           type: array
           items:
             $ref: "#/components/schemas/BsnWijziging"
+    BsnWijzigingenHalCollectionLinks:
+      type: object
+      properties:
+        burgerservicenummerOud:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+        burgerservicenummerNieuw:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/schemas/HalLink"
     BsnWijziging:
       type: object
       properties:
-        burgerservicenummer-oud:
+        burgerservicenummerOud:
           type: string
           description: "Het oude burgerservicenummer in de wijziging."
-        burgerservicenummer-nieuw:
+        burgerservicenummerNieuw:
           type: string
           description: "Het nieuwe burgerservicenummer in de wijziging. In het geval van het opheffen van een PL met burgerservicenummer zal dit veld achterwege worden gelaten."
         ingangsdatum:
