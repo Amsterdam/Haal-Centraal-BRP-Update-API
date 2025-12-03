@@ -153,7 +153,7 @@ paths:
       parameters:
         - in: query
           name: vanaf
-          required: false
+          required: true
           explode: false
           description: Alleen personen waarbij gegevens zijn gewijzigd op of na deze datum worden geleverd.
           schema:
