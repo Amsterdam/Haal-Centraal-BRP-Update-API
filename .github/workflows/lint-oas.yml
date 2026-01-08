@@ -1,4 +1,6 @@
 name: lint-oas
+permissions:
+  contents: write
 
 on:
   push:

@@ -1,4 +1,6 @@
 name: generate-postman-collection
+permissions:
+  contents: write
 
 on:
   push:

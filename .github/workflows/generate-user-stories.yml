@@ -1,4 +1,6 @@
 name: publish 'in productie' en 'in ontwikkeling' user stories
+permissions:
+  contents: write
 
 on:
   schedule:
